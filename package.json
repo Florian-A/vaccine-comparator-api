@@ -4,7 +4,7 @@
   "description": "API de recherche et de comparaison des vaccins contre la COVID19.",
   "main": "/src/index.ts",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
