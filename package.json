@@ -2,7 +2,7 @@
   "name": "vaccine-covid-api",
   "version": "1.0.0",
   "description": "API de recherche et de comparaison des vaccins contre la COVID19.",
-  "main": "/src/server.ts",
+  "main": "/src/index.ts",
   "directories": {
     "test": "tests"
   },
