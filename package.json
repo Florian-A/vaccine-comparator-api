@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "watch": "nodemon --watch 'src/*/.ts' --exec \"ts-node\" src/index.ts -- --env=local"
+    "local": "nodemon -r dotenv/config --watch 'src/*/.ts' --exec \"ts-node\" src/index.ts -- --env dotenv_config_path=local.env"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "chai": "^4.3.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mocha": "^8.2.1",
     "ts-node-dev": "^1.1.1"
