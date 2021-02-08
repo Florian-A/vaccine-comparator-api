@@ -1,4 +1,4 @@
-name: Workflow Test
+name: Test
 
 on: [ dev ]
 jobs:
