@@ -4,11 +4,11 @@
   "description": "API de recherche et de comparaison des vaccins contre la COVID19.",
   "main": "/src/index.ts",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "watch": "nodemon --watch 'src/*/.ts' --exec \"ts-node\" src/index.ts -- --env=dev"
+    "watch": "nodemon --watch 'src/*/.ts' --exec \"ts-node\" src/index.ts -- --env=local"
   },
   "repository": {
     "type": "git",
