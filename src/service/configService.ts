@@ -1,16 +1,17 @@
 class ConfigService {
     // valeur par defaut
+
     private database: string = "@test";
     private user: string = "@test";
     private password: string = "@test";
     
 
     initDatabase(){
-    //???? à voir quoi faire 
+        return this.database;
 
     }
 
 
 }
 
-export const config = new ConfigService;
+export const configs = new ConfigService;
