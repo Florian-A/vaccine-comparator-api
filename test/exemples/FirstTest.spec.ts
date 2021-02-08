@@ -1,9 +1,9 @@
-var assert = require('assert');
+import { expect } from 'chai'
 
-describe('String', function() {
-    describe('#split', function() {
-      it('should return an array', function() {
-        assert(Array.isArray('a,b,c'.split(',')))
+describe('Exemples :', function() {
+    describe('First test', function() {
+      it('one plus two equal three', function() {
+        expect(1+2).to.equal(3);
       });
     });
 });
