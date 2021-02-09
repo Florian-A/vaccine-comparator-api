@@ -6,6 +6,7 @@ export interface Vaccin {
     name: string
     sideEffects: string
     releaseDate: Date
+    laboratory: number
     schema: Object
 }
 
@@ -14,25 +15,26 @@ export class Vaccin {
         _id: number = null,
         name: string,
         sideEffects: string,
-        releaseDate: Date) {
+        releaseDate: Date,
+        laboratory: number) {
         this._id = _id
         this.name = name
         this.sideEffects = sideEffects
         this.releaseDate = releaseDate
-        this.schema = {
-            type: 'object',
-            required: ['name', 'sideEffects', 'releaseDate'],
-            properties: {
-                _id: { type: "number" },
-                name: { type: "string", minLength: 2, maxLength: 255 },
-                sideEffects: { type: "string" },
-                releaseDate: { type: "date" }
-
-            }
-        }
+        this.laboratory = laboratory
     }
     validate() {
-        return (ajv.validate(this.schema, this)) ? true : ajv.errors
+        return (ajv.validate(schema, this)) ? true : ajv.errors
     }
 }
-
+const schema = {
+    type: 'object',
+    required: ['name', 'sideEffects', 'releaseDate', 'laboratory'],
+    properties: {
+        _id: { type: "number" },
+        name: { type: "string", minLength: 2, maxLength: 255 },
+        sideEffects: { type: "string" },
+        releaseDate: { type: "date" },
+        laboratory: { type: "number" }
+    }
+}
