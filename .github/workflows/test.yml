@@ -11,6 +11,13 @@ jobs:
   test:
     name: Run tests
     runs-on: ubuntu-latest
+    env:
+      WEB_PORT: 3000
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: 1234
+      DB_NAME: vaccine_covid_test
     services:
       mysql:
         image: mariadb:10.5.8-focal
