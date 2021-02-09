@@ -1,4 +1,4 @@
-import { databaseConfig } from './ DatabaseConfig.service'
+import { databaseConfig } from './ databaseConfig.service'
 
 class DatabaseService {
 
