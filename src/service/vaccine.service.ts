@@ -1,4 +1,4 @@
-import { Vaccine } from "../entity/vaccine";
+import { Vaccine } from "../model/vaccine";
 import { VaccineDAO as dao } from "../repository/vaccine.dao";
 
 export class VaccineService {
@@ -7,8 +7,7 @@ export class VaccineService {
 
         return new Promise(async function (resolve, reject) {
             try {
-
-                if(vaccine.id !== null) {
+                if(vaccine._id !== null) {
                     dao.edit(vaccine);
                 } else {
                     dao.create(vaccine);

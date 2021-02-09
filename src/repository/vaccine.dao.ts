@@ -1,5 +1,5 @@
 
-import { Vaccine } from '../entity/vaccine';
+import { Vaccine } from '../model/vaccine';
 import { database } from '../service/database.service';
 
 export class VaccineDAO {
@@ -8,7 +8,7 @@ export class VaccineDAO {
         return new Promise((resolve, reject) => {
             database.query(`SELECT * FROM vaccine LIMIT ${limit} OFFSET ${offset}`)
                 .then((results: Array<any>) => {
-                    resolve(results.map(row => new Vaccine(row)))
+                    resolve(results.map(row => new Vaccine(row.id, row.name, row.sideEffects, row.releaseDate)))
                 })
                 .catch(e => {
                     reject(e)
@@ -19,9 +19,9 @@ export class VaccineDAO {
     static getById(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
             database.query(`SELECT * FROM vaccine WHERE id = ${id}`)
-                .then((results: Array<any>) => {
-                    resolve(result => new Vaccine(result))
-                }).catch(e => {
+                .then(
+                    row => new Vaccine(row.id, row.name, row.sideEffects, row.releaseDate)
+                ).catch(e => {
                     reject(e)
                 })
         })
@@ -29,7 +29,6 @@ export class VaccineDAO {
 
     static create(vaccine: Vaccine): Promise<any> {
         return new Promise((resolve, reject) => {
-
             database.query(`INSERT INTO vaccine VALUES (${vaccine.name})`)
                 .then((result: any) => {
                     console.log(result)
@@ -41,10 +40,9 @@ export class VaccineDAO {
 
     static edit(vaccine: Vaccine): Promise<any> {
         return new Promise((resolve, reject) => {
-
-            database.query(`UPDATE vaccine SET name = ${vaccine.name} WHERE id = ${vaccine.id}`)
+            database.query(`UPDATE vaccine SET name = ${vaccine.name} WHERE id = ${vaccine._id}`)
                 .then((result: any) => {
-                    console.log(result)
+                    resolve(result)
                 }).catch(e => {
                     reject(e)
                 })

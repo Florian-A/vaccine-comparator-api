@@ -1,7 +1,7 @@
 const Ajv = require('ajv');
 const ajv = Ajv({ allErrors: true });
 
-export interface Vaccin {
+export interface Vaccine {
     _id?: number
     name: string
     sideEffects: string
@@ -9,7 +9,7 @@ export interface Vaccin {
     schema: Object
 }
 
-export class Vaccin {
+export class Vaccine {
     constructor(
         _id: number = null,
         name: string,
