@@ -18,10 +18,12 @@ export class Laboratory {
         this.name = name
         this.password = password
     }
+    
     validate() {
         return (ajv.validate(schema, this)) ? true : ajv.errors
     }
 }
+
 const schema = {
     type: 'object',
     required: ['name', 'password'],

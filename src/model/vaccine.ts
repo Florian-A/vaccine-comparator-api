@@ -1,22 +1,25 @@
-const Ajv = require('ajv');
-const ajv = Ajv({ allErrors: true });
+import AJV from 'ajv'
 
-export interface Vaccin {
-    _id?: number
+const ajv = new AJV({
+    allErrors: true,
+  });
+  
+export interface Vaccine {
     name: string
     sideEffects: string
     releaseDate: Date
-    laboratory: number
-    schema: Object
+    _id?: number
+    laboratory?: number
+    schema?: Object
 }
 
-export class Vaccin {
+export class Vaccine {
     constructor(
-        _id: number = null,
         name: string,
         sideEffects: string,
         releaseDate: Date,
-        laboratory: number) {
+        _id: number = null,
+        laboratory: number = null) {
         this._id = _id
         this.name = name
         this.sideEffects = sideEffects
@@ -27,14 +30,15 @@ export class Vaccin {
         return (ajv.validate(schema, this)) ? true : ajv.errors
     }
 }
+
 const schema = {
     type: 'object',
-    required: ['name', 'sideEffects', 'releaseDate', 'laboratory'],
+    required: ['name', 'sideEffects', 'releaseDate'],
     properties: {
-        _id: { type: "number" },
         name: { type: "string", minLength: 2, maxLength: 255 },
         sideEffects: { type: "string" },
         releaseDate: { type: "date" },
+        _id: { type: "number" },
         laboratory: { type: "number" }
     }
 }
