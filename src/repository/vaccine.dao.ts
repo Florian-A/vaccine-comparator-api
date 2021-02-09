@@ -29,7 +29,7 @@ export class VaccineDAO {
 
     static create(vaccine: Vaccine): Promise<any> {
         return new Promise((resolve, reject) => {
-            database.query(`INSERT INTO vaccine VALUES (${vaccine.name})`)
+            database.query(`INSERT INTO vaccine (name) VALUES ('${vaccine.name}')`)
                 .then((result: any) => {
                     console.log(result)
                 }).catch(e => {
