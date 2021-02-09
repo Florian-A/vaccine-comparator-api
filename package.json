@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "test": "mocha -r dotenv/config -r ts-node/register test/**/*.spec.ts -- --env dotenv_config_path=test.env",
     "local": "nodemon -r dotenv/config --watch 'src/*/.ts' --exec \"ts-node\" src/index.ts -- --env dotenv_config_path=local.env"
   },
   "repository": {

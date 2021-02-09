@@ -10,7 +10,7 @@ create table if not exists vaccine
 (
     id             int(9) auto_increment    not null,
     laboratoryId   int(9)                   null,
-    name           varchar(45)              null,
+    name           varchar(45)              not null,
     typeOfVaccine  varchar(45)              null,
     sideEffects    text(1000)               null,
     releaseDate    datetime                 null,

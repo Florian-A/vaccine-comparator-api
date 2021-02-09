@@ -25,7 +25,6 @@ class DatabaseService {
     private testConnection(): void {
         this.connection.connect((err) => {
             if (err) throw err;
-            console.log('Connected with database !');
         });
     }
 
