@@ -6,8 +6,8 @@ export interface Vaccine {
     name: string
     sideEffects: string
     releaseDate: Date
-    laboratory: number
-    schema: Object
+    laboratory?: number
+    schema?: Object
 }
 
 export class Vaccine {
