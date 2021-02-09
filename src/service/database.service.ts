@@ -1,24 +1,46 @@
-class databaseConnector {
+import { databaseConfig } from './ DatabaseConfig.service'
+
+class DatabaseService {
+
     connection: any;
-    mysql: any;
-    config: any;
 
     constructor(config: any) {
-        this.mysql = require('mysql');
-        this.initDatabase(config)
+
+        this.initDatabase(config);
+        this.testConnection();
+
     }
-    public initDatabase(config: any): void {
-        this.connection = this.mysql.createConnection(config);
+    private initDatabase(config: any): void {
+
+        const mysql = require('mysql');
+        this.connection = mysql.createConnection({
+            host: config.host,
+            port: config.port,
+            user: config.user,
+            password: config.password,
+            database: config.database
+        });
     }
-    
-    public testConnection() {
+
+    private testConnection(): void {
         this.connection.connect((err) => {
             if (err) throw err;
-            console.log('Connected!');
-          });
+            console.log('Connected with database !');
+        });
+    }
+
+    public query(queryString: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.connection.query(queryString, (error, results, fields) => {
+                if (error) {
+                    reject(error)
+                } else {
+                    resolve(results)
+                }
+            })
+        })
     }
 
 }
 
-const databaseConfig = new databaseConfig();
-const database = new databaseConnector(databaseConfig);
+export const database = new DatabaseService(databaseConfig)
