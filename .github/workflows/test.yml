@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - dev
-      - feature/integration-database-test-with-ci
       - feature/add-autoclean-database-in-test
   pull_request:
     branches:
