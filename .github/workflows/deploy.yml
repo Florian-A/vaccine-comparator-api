@@ -20,9 +20,9 @@ jobs:
           port: 22
           script: |
             echo "Hello world $CLONE_DIR"
-            echo ${{github.repository}}
+            echo git@github.com:${{github.repository}}.git
             rm -rf $CLONE_DIR
-            git clone -b develop ${{github.repository}} $CLONE_DIR
+            git clone -b dev git@github.com:${{github.repository}}.git $CLONE_DIR
             cd $CLONE_DIR
             npm install
             npm run build
