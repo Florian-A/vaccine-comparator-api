@@ -7,7 +7,7 @@ export class VaccineService {
 
         return new Promise(async function (resolve, reject) {
             try {
-                if(vaccine._id !== null) {
+                if (vaccine._id !== null) {
                     dao.edit(vaccine);
                 } else {
                     dao.create(vaccine);
@@ -30,7 +30,7 @@ export class VaccineService {
         })
     }
 
-    static getById(id: number): Promise<Array<Vaccine>> {
+    static getById(id: number): Promise<Vaccine> {
         return new Promise(async function (resolve, reject) {
             try {
                 const vaccine = await dao.getById(id);

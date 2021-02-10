@@ -8,7 +8,9 @@ export class VaccineDAO {
         return new Promise((resolve, reject) => {
             database.query(`SELECT * FROM vaccine LIMIT ${limit} OFFSET ${offset}`)
                 .then((results: Array<any>) => {
-                    resolve(results.map(row => new Vaccine(row.id, row.name, row.sideEffects, row.releaseDate)))
+                    resolve(results.map(
+                        row => new Vaccine(row.name, row.typeOfVaccine, row.sideEffects, row.releaseDate, row.injection, row.stepValidation, row.id, row.laboratoryId)
+                    ))
                 })
                 .catch(e => {
                     reject(e)
@@ -19,9 +21,11 @@ export class VaccineDAO {
     static getById(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
             database.query(`SELECT * FROM vaccine WHERE id = ${id}`)
-                .then(
-                    row => new Vaccine(row.id, row.name, row.sideEffects, row.releaseDate)
-                ).catch(e => {
+                .then(row => {
+                    resolve(
+                        new Vaccine(row[0].name, row[0].typeOfVaccine, row[0].sideEffects, row[0].releaseDate, row[0].injection, row[0].stepValidation, row[0].id, row[0].laboratoryId)
+                    )
+                }).catch(e => {
                     reject(e)
                 })
         })
@@ -29,12 +33,14 @@ export class VaccineDAO {
 
     static create(vaccine: Vaccine): Promise<any> {
         return new Promise((resolve, reject) => {
-            database.query(`INSERT INTO vaccine (name) VALUES ('${vaccine.name}')`)
-                .then((result: any) => {
-                    console.log(result)
-                }).catch(e => {
-                    reject(e)
-                })
+            database.query(`
+            INSERT INTO vaccine (name,typeOfVaccine,sideEffects,sideEffects,injection,stepValidation,id,laboratoryId) 
+            VALUES ('${vaccine.name}', '${vaccine.typeOfVaccine}', '${vaccine.sideEffects}', '${vaccine.releaseDate}', '${vaccine.injection}', '${vaccine.stepValidation}', '${vaccine._id}', '${vaccine.laboratoryId}')
+            `).then((result: any) => {
+                resolve(result)
+            }).catch(e => {
+                reject(e)
+            })
         })
     }
 

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-cat database.local.sql | mysql -h127.0.0.1 -uroot -p1234
-cat ./test/mockup_db.sql | mysql -h127.0.0.1 -ujack -proot vaccine_covid_local
+cat ./sql/database.test.sql | mysql -h127.0.0.1 -uroot -p1234
+cat ./sql/structure+dataset.sql | mysql -h127.0.0.1 -uroot -p1234 vaccine_covid_test

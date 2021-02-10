@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - dev
+      - feature/integration-database-test-with-ci
   pull_request:
     branches:
       - dev
@@ -10,10 +11,40 @@ jobs:
   test:
     name: Run tests
     runs-on: ubuntu-latest
+    env:
+      WEB_PORT: 3000
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: 1234
+      DB_NAME: vaccine_covid_test
+    services:
+      mysql:
+        image: mariadb:10.5.8-focal
+        env:
+          MYSQL_ROOT_PASSWORD: 1234
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '15'
+      - name: Exec database structure and dataset.
+        run: bash sql/test.sh
       - run: npm install
       - run: npm test
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp-relay.sendinblue.com
+          server_port: 587
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Github Actions job result
+          body: Build job of ${{github.repository}} completed successfully!
+          to: gitlab@florian-a.dev
+          from: GitHub
+          content_type: text/html
+          convert_markdown: true
