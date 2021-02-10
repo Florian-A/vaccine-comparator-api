@@ -1,3 +1,5 @@
+use vaccine_covid_local;
+
 create table if not exists laboratory
 (
     id       int(9) auto_increment      not null,
