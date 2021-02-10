@@ -21,10 +21,10 @@ jobs:
           script: |
             echo "Hello world $CLONE_DIR"
             echo git@github.com:${{github.repository}}.git
-            echo ${{ secrets.WEB_PORT }}
             rm -rf $CLONE_DIR
-            git clone -b dev git@github.com:${{github.repository}}.git $CLONE_DIR
+            git clone -b feature/add-deploy git@github.com:${{github.repository}}.git $CLONE_DIR
             cd $CLONE_DIR
+            sed -i 's/web_port/${{ secrets.WEB_PORT }}/g' exemple.env
             cp exemple.env prod.env
             npm install
             npm run build
