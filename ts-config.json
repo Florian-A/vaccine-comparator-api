@@ -1,27 +1,27 @@
 {
     "compilerOptions": {
-        "lib": [
-            "es5",
-            "es2015.promise",
-            "dom"
-        ],
-        "module": "commonjs",
-        "outDir": "dist",
-        "rootDir": "src",
-        "sourceMap": false,
-        "target": "es6",
-        "moduleResolution": "node",
-        "noImplicitAny": false,
-        "strictNullChecks": false,
-        "typeRoots": [
-            "./node_modules/@types"
-        ]
+      "lib": [
+        "es5",
+        "es2015.promise",
+        "dom"
+      ],
+      "module": "commonjs",
+      "outDir": "dist",
+      "rootDir": "src",
+      "sourceMap": false,
+      "target": "es6",
+      "moduleResolution": "node",
+      "noImplicitAny": false,
+      "strictNullChecks": false,
+      "typeRoots": [
+        "./node_modules/@types"
+      ]
     },
     "include": [
-        "./*/.ts"
+      "src/**/*.ts"
     ],
     "exclude": [
-        "./test",
-        "./node_modules"
+      "node_modules",
+      "test/*.spec.ts"
     ]
-}
+  }
