@@ -24,5 +24,6 @@ jobs:
             rm -rf $CLONE_DIR
             git clone -b dev git@github.com:${{github.repository}}.git $CLONE_DIR
             cd $CLONE_DIR
+            sed 's/web_port/${{ secrets.WEB_PORT }}/g' exemple.env > prod.env
             npm install
             npm run build
