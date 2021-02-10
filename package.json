@@ -9,7 +9,7 @@
   "scripts": {
     "test": "mocha -r dotenv/config -r ts-node/register test/**/*.spec.ts --exit -- --env dotenv_config_path=test.env",
     "local": "nodemon -r dotenv/config --watch 'src/*/.ts' --exec \"ts-node\" src/index.ts -- --env dotenv_config_path=local.env",
-    "build": "tsc -p ts-config.json"
+    "build": "bash build.bash && tsc -p ts-config.json"
   },
   "repository": {
     "type": "git",

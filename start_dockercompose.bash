@@ -4,7 +4,7 @@ this_directory=$(dirname $0)"/";
 
 main()
 {
-    bash $this_directory/start.bash build
+    bash $this_directory/start_dockercompose.bash build
 }
 
 
