@@ -3,13 +3,12 @@ import { Vaccine } from './model/vaccine'
 import { VaccineService } from './service/vaccine.service'
 const app = express()
 
-// VaccineService.getById(1).then(
-//   vaccine => {
-//     console.log(vaccine)
-//   })
-
 app.get('/', (req, res) => {
   res.send('Hello World!')
+})
+
+app.get('/status', (req, res) => {
+  res.send('online')
 })
 
 app.listen(process.env.WEB_PORT, () => {
