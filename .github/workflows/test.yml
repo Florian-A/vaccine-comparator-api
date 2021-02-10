@@ -33,7 +33,6 @@ jobs:
         with:
           node-version: '15'
       - name: Exec database structure and dataset.
-        run: bash init_test_database.bash
       - run: npm install
       - run: npm test
       - name: Send mail
