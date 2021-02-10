@@ -17,7 +17,7 @@ jobs:
       DB_PORT: 3306
       DB_USER: root
       DB_PASS: 1234
-      DB_NAME: vaccine_covid_test
+      DB_NAME: vaccine_comparator_test
     services:
       mysql:
         image: mariadb:10.5.8-focal
