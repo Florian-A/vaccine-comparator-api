@@ -35,3 +35,16 @@ jobs:
         run: bash sql/test.sh
       - run: npm install
       - run: npm test
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp-relay.sendinblue.com
+          server_port: 587
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Github Actions job result
+          body: Build job of ${{github.repository}} completed successfully!
+          to: gitlab@florian-a.dev
+          from: GitHub
+          content_type: text/html
+          convert_markdown: true
