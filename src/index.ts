@@ -1,9 +1,17 @@
 import * as express from 'express'
+import cors from 'cors'
 import { Vaccine } from './model/vaccine'
 import { VaccineService } from './service/vaccine.service'
 const app = express()
 
+app.use(cors());
+
+
 app.get('/', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'content-type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+
   res.send(
     {
       message: 'ok grp4',
