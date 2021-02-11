@@ -3,8 +3,6 @@ import { Vaccine } from './model/vaccine'
 import { VaccineService } from './service/vaccine.service'
 const app = express()
 
-console.log(process.env)
-
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
