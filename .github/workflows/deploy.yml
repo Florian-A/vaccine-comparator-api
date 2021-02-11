@@ -2,9 +2,7 @@ name: Deploy
 on: 
   push:
     branches:
-      - feature/add-deploy
       - dev
-      - feature/improvement-deploy-ci/cd
 jobs:
   deploy:
     runs-on: ubuntu-latest
