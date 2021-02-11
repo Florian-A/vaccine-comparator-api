@@ -4,6 +4,7 @@ on:
     branches:
       - feature/add-deploy
       - dev
+      - feature/improvement-deploy-ci/cd
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -28,3 +29,4 @@ jobs:
             cp exemple.env prod.env
             npm install
             npm run build
+            rm -v -R !("dist")
