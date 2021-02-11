@@ -10,4 +10,5 @@ describe("Test vaccine model instance.", () => {
         const test = vaccine.validate()
         expect(test).to.be.true
     })
+    
 })
