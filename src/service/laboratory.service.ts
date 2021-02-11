@@ -3,7 +3,7 @@ import { LaboratoryDAO as dao } from "../repository/laboritory.dao";
 
 export class LaboratoryService {
 
-    static persist(laboratory: any): Promise<any> {
+    static persist(laboratory: Laboratory): Promise<any> {
         return new Promise(async function (resolve, reject) {
             try {
                 const labo = new Laboratory(laboratory.name, laboratory.password)
