@@ -20,6 +20,18 @@ app.get('/', (req, res) => {
   )
 })
 
+app.get('/vaccines', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'content-type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+
+  VaccineService.getAll().then(
+    vaccine => {
+      res.json(vaccine)
+    })
+})
+
+
 app.get('/status', (req, res) => {
   res.send('online')
 })
