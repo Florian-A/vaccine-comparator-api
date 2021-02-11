@@ -1,5 +1,5 @@
 import * as express from 'express'
-import cors from 'cors'
+import * as cors from 'cors'
 import { Vaccine } from './model/vaccine'
 import { VaccineService } from './service/vaccine.service'
 const app = express()

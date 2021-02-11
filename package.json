@@ -27,6 +27,7 @@
   "homepage": "https://github.com/Florian-A/vaccine-covid-api#readme",
   "devDependencies": {
     "@types/chai": "^4.2.14",
+    "@types/cors": "^2.8.9",
     "@types/express": "^4.17.11",
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.25",
