@@ -1,12 +1,16 @@
 import * as express from 'express'
-
+import { Vaccine } from './model/vaccine'
+import { VaccineService } from './service/vaccine.service'
 const app = express()
-const port = 3000
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+app.get('/status', (req, res) => {
+  res.send('online')
+})
+
+app.listen(process.env.WEB_PORT, () => {
+  console.log(`Listen on -> http://localhost:${process.env.WEB_PORT}`)
 })

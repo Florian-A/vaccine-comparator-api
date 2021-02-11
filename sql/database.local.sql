@@ -1,0 +1,1 @@
+create database if not exists vaccine_comparator_local default character set utf8;

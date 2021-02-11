@@ -5,7 +5,7 @@ this_directory=$(dirname $0)"/";
 
 main()
 {
-    bash $this_directory/stop.bash build
+    bash $this_directory/stop_dockercompose.bash build
 }
 
 
