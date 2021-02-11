@@ -6,34 +6,35 @@ const app = express()
 
 app.use(cors());
 
-
 app.get('/', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'content-type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
-
-  res.send(
+  res.json(
     {
-      message: 'ok grp4',
+      message: 'Okey for group 4 !',
       description: 'Everything is okey in the best of all possible worlds !'
     }
   )
 })
 
-app.get('/vaccines', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'content-type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+app.get('/vaccines/:id', (req, res, next) => {
+  VaccineService.getById(parseInt(req.params.id)).then(
+    vaccine => {
+      res.json(vaccine)
+    })
+})
 
+app.get('/vaccines', (req, res) => {
   VaccineService.getAll().then(
     vaccine => {
       res.json(vaccine)
     })
 })
 
-
 app.get('/status', (req, res) => {
-  res.send('online')
+  res.json(
+    {
+      message: 'Service is online !'
+    }
+  )
 })
 
 app.listen(process.env.WEB_PORT, () => {
