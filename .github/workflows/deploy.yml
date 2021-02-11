@@ -2,7 +2,7 @@ name: Deploy
 on: 
   push:
     branches:
-      - feature/add-database-in-workflow
+      - dev
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,7 +21,7 @@ jobs:
             echo "Starting deploy script ..."
             echo git@github.com:${{github.repository}}.git
             rm -rf $CLONE_DIR
-            git clone -b feature/add-database-in-workflow git@github.com:${{github.repository}}.git $CLONE_DIR
+            git clone -b dev git@github.com:${{github.repository}}.git $CLONE_DIR
             cd $CLONE_DIR
             sed -i 's/web_port/${{ secrets.WEB_PORT }}/g' exemple.env
             sed -i 's/db_host/${{ secrets.DB_HOST }}/g' exemple.env
