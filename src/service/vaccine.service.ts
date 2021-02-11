@@ -3,17 +3,18 @@ import { VaccineDAO as dao } from "../repository/vaccine.dao";
 
 export class VaccineService {
 
-    static persist(vaccine: Vaccine): Promise<any> {
-
+    static persist(vax: Vaccine): Promise<any> {
         return new Promise(async function (resolve, reject) {
             try {
+                const vaccine = new Vaccine(vax.name, vax.typeOfVaccine, vax.sideEffects, vax.releaseDate, vax.injection, vax.stepValidation, vax._id, vax.laboratoryId)
+                if (!vaccine.validate() === true) throw vaccine.validate()
                 if (vaccine._id !== null) {
-                    dao.edit(vaccine);
+                    resolve(dao.edit(vaccine));
                 } else {
-                    dao.create(vaccine);
+                    resolve(dao.create(vaccine));
                 }
-                resolve(vaccine)
             } catch (err) {
+                console.log(err)
                 reject(err)
             }
         })

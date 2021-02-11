@@ -34,11 +34,12 @@ export class VaccineDAO {
     static create(vaccine: Vaccine): Promise<any> {
         return new Promise((resolve, reject) => {
             database.query(`
-            INSERT INTO vaccine (name,typeOfVaccine,sideEffects,sideEffects,injection,stepValidation,id,laboratoryId) 
-            VALUES ('${vaccine.name}', '${vaccine.typeOfVaccine}', '${vaccine.sideEffects}', '${vaccine.releaseDate}', '${vaccine.injection}', '${vaccine.stepValidation}', '${vaccine._id}', '${vaccine.laboratoryId}')
+            INSERT INTO vaccine (name,typeOfVaccine,sideEffects,releaseDate,injection,stepValidation,laboratoryId) 
+            VALUES ('${vaccine.name}', '${vaccine.typeOfVaccine}', '${vaccine.sideEffects}', '${vaccine.releaseDate.toISOString().slice(0, 19).replace('T', ' ')}', ${vaccine.injection}, '${vaccine.stepValidation}',${vaccine.laboratoryId});            
             `).then((result: any) => {
                 resolve(result)
             }).catch(e => {
+                console.log(e)
                 reject(e)
             })
         })
