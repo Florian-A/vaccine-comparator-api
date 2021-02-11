@@ -3,12 +3,11 @@ on:
   push:
     branches:
       - dev
-      - feature/add-database-in-workflow
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Executing remote ssh commands using password
+      - name: Executing remote ssh commands ...
         uses: appleboy/ssh-action@master
         env:
           CLONE_DIR: /home/${{ secrets.SSH_USERNAME }}/node-grp4
