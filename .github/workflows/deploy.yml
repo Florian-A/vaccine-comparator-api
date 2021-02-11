@@ -7,23 +7,32 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Executing remote ssh commands using password
+      - name: Executing remote ssh commands ...
         uses: appleboy/ssh-action@master
         env:
-          CLONE_DIR: /home/john/node-grp4
+          CLONE_DIR: /home/${{ secrets.SSH_USERNAME }}/node-grp4
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.WEB_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: CLONE_DIR
           port: 22
           script: |
-            echo "Hello world $CLONE_DIR"
+            echo "Starting deploy script ..."
             echo git@github.com:${{github.repository}}.git
             rm -rf $CLONE_DIR
             git clone -b dev git@github.com:${{github.repository}}.git $CLONE_DIR
             cd $CLONE_DIR
             sed -i 's/web_port/${{ secrets.WEB_PORT }}/g' exemple.env
+            sed -i 's/db_host/${{ secrets.DB_HOST }}/g' exemple.env
+            sed -i 's/db_port/${{ secrets.DB_PORT }}/g' exemple.env
+            sed -i 's/db_username/${{ secrets.DB_USERNAME }}/g' exemple.env
+            sed -i 's/db_password/${{ secrets.DB_PASSWORD }}/g' exemple.env
+            sed -i 's/db_name/${{ secrets.DB_NAME }}/g' exemple.env
+            sed -i -e 's/db_host/${{ secrets.DB_HOST }}/g' sql/prod.bash
+            sed -i -e 's/db_user/${{ secrets.DB_USERNAME }}/g' sql/prod.bash
+            sed -i -e 's/db_pass/${{ secrets.DB_PASSWORD }}/g' sql/prod.bash
+            sed -i -e 's/db_name/${{ secrets.DB_NAME }}/g' sql/prod.bash
             cp exemple.env prod.env
             npm install
             npm run build

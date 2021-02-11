@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - dev
-      - feature/add-autoclean-database-in-test
   pull_request:
     branches:
       - dev
@@ -41,9 +40,9 @@ jobs:
           server_port: 587
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Github Actions job result
+          subject: Github actions job result
           body: Build job of ${{github.repository}} completed successfully!
-          to: gitlab@florian-a.dev
+          to: ${{secrets.MAIL_USERNAME}}
           from: GitHub
           content_type: text/html
           convert_markdown: true
