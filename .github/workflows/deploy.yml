@@ -30,3 +30,4 @@ jobs:
             ls . | grep -v "dist" | xargs rm -r
             cd dist
             npm install
+            pm2 start --node-args="-r dotenv/config" index.js --name "app_grp4"
