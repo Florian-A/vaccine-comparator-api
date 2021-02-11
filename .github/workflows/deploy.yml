@@ -28,6 +28,7 @@ jobs:
             sed -i 's/db_port/${{ secrets.DB_PORT }}/g' exemple.env
             sed -i 's/db_username/${{ secrets.DB_USERNAME }}/g' exemple.env
             sed -i 's/db_password/${{ secrets.DB_PASSWORD }}/g' exemple.env
+            sed -i 's/db_name/${{ secrets.DB_NAME }}/g' exemple.env
             sed -i -e 's/db_host/${{ secrets.DB_HOST }}/g' sql/prod.bash
             sed -i -e 's/db_user/${{ secrets.DB_USERNAME }}/g' sql/prod.bash
             sed -i -e 's/db_pass/${{ secrets.DB_PASSWORD }}/g' sql/prod.bash
