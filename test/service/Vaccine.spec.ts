@@ -18,3 +18,40 @@ describe("Test vaccine service database.", () => {
       })
   })
 })
+
+describe("get all vaccine.", async () => {
+
+  it("Get 3 vaccines ", () => {
+
+    return VaccineService.getAll().then(
+
+      vaccine => {
+
+        let count: number = 0;
+        for (const iterator of vaccine) {
+          count++;
+        }
+        expect(vaccine).to.be.an('array');
+        expect(count).to.be.equal(3);
+
+      })
+      .catch(e => {
+        console.log(e)
+        assert.fail(e)
+      })
+  })
+})
+
+describe("Create a new vaccine.", async () => {
+
+  it('Should new vaccine', async function () {
+
+    let vaccine = new Vaccine("TestName", "TestType", "SideEffect", new Date(Date.now()), 99, "V");
+    const result = await VaccineService.persist(vaccine);
+    vaccine = await VaccineService.getById(result.insertId)
+    expect(vaccine).to.be.instanceOf(Vaccine);
+    expect(vaccine).not.to.be.empty;
+    expect(vaccine._id).to.equal(result.insertId)
+    expect(vaccine.name).to.equal("TestName")
+  });
+})
