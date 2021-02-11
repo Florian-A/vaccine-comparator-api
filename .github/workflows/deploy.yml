@@ -30,3 +30,5 @@ jobs:
             npm install
             npm run build
             ls . | grep -v "dist" | xargs rm -r
+            cd dist
+            npm install
