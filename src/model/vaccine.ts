@@ -32,11 +32,22 @@ export class Vaccine {
         this.releaseDate = releaseDate
         this.injection = injection
         this.stepValidation = stepValidation
-        this._id = _id
-        this.laboratoryId = laboratoryId
+        this._id = _id || null
+        this.laboratoryId = laboratoryId || null
     }
     validate() {
-        return (ajv.validate(schema, this)) ? true : ajv.errors
+        const obj = {
+            name: this.name,
+            typeOfVaccine: this.typeOfVaccine,
+            sideEffects: this.sideEffects,
+            releaseDate: this.releaseDate,
+            injection: this.injection,
+            stepValidation: this.stepValidation,
+            laboratoryId: this.laboratoryId,
+        }
+        if (ajv.validate(schema, obj))
+            return true
+        else return ajv.errors
     }
 }
 
@@ -47,7 +58,6 @@ const schema = {
         name: { type: "string", minLength: 2, maxLength: 255 },
         typeOfVaccine: { type: "string" },
         sideEffects: { type: "string" },
-        releaseDate: { type: "date" },
         injection: { type: "number" },
         stepValidation: { type: "string" },
         _id: { type: "number" },
