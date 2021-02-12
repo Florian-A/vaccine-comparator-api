@@ -45,7 +45,7 @@ jobs:
       - name: Testing API ...
         uses: lakuapik/gh-actions-http-status@v1
         with:
-          sites: '["http://api.vaccine-comparator.xyz/"]'
+          sites: '["http://api.vaccine-comparator.xyz/status"]'
           expected: '[200]'
       - name: Send mail
         uses: dawidd6/action-send-mail@v2
