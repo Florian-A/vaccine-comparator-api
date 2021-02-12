@@ -46,13 +46,7 @@ jobs:
         uses: jakejarvis/wait-action@master
         with:
           time: '5s'
-      - name: Testing API ...
-        uses: cygnetdigital/wait_for_response@v2.0.0
-        with:
-          url: 'http://api.vaccine-comparator.xyz'
-          responseCode: '200'
-          timeout: 2000
-          interval: 500
+      - name: Test status of API ...
         uses: cygnetdigital/wait_for_response@v2.0.0
         with:
           url: 'http://api.vaccine-comparator.xyz/status'
