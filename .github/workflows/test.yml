@@ -41,7 +41,7 @@ jobs:
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
           subject: Github actions job result
-          body: Build job of ${{github.repository}} completed successfully!
+          body: Test job of ${{github.repository}} completed successfully!
           to: ${{secrets.MAIL_USERNAME}}
           from: GitHub
           content_type: text/html
