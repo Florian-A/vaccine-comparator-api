@@ -3,13 +3,12 @@ on:
   push:
     branches:
       - dev
-      - feature/add-fonctional-test-after-deploy-complete
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Executing remote ssh commands ...
-        uses: dev
+        uses: appleboy/ssh-action@master
         env:
           CLONE_DIR: /home/${{ secrets.SSH_USERNAME }}/node-grp4
         with:
