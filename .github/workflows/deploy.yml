@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Executing remote ssh commands ...
-        uses: appleboy/ssh-action@master
+        uses: dev
         env:
           CLONE_DIR: /home/${{ secrets.SSH_USERNAME }}/node-grp4
         with:
@@ -22,7 +22,7 @@ jobs:
             echo "Starting deploy script ..."
             echo git@github.com:${{github.repository}}.git
             rm -rf $CLONE_DIR
-            git clone -b feature/add-fonctional-test-after-deploy-complete git@github.com:${{github.repository}}.git $CLONE_DIR
+            git clone -b dev git@github.com:${{github.repository}}.git $CLONE_DIR
             cd $CLONE_DIR
             sed -i 's/web_port/${{ secrets.WEB_PORT }}/g' exemple.env
             sed -i 's/db_host/${{ secrets.DB_HOST }}/g' exemple.env
