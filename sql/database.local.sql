@@ -1,1 +1,1 @@
-create database if not exists vaccine_covid_local default character set utf8;
+create database if not exists vaccine_comparator_local default character set utf8;

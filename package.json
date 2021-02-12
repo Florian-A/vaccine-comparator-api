@@ -7,9 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha -r dotenv/config -r ts-node/register test/**/*.spec.ts --exit -- --env dotenv_config_path=test.env",
+    "test": "bash init_test_database.bash && mocha -r dotenv/config -r ts-node/register test/**/*.spec.ts --exit -- --env dotenv_config_path=test.env",
     "local": "nodemon -r dotenv/config --watch 'src/*/.ts' --exec \"ts-node\" src/index.ts -- --env dotenv_config_path=local.env",
-    "build": "bash build.bash && tsc -p ts-config.json"
+    "build": "bash init_pre_build_commands.bash && tsc -p ts-config.json",
+    "deploy": "node -r dotenv/config index.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "homepage": "https://github.com/Florian-A/vaccine-covid-api#readme",
   "devDependencies": {
     "@types/chai": "^4.2.14",
+    "@types/cors": "^2.8.9",
     "@types/express": "^4.17.11",
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.25",
@@ -36,6 +38,7 @@
   "dependencies": {
     "ajv": "^7.0.4",
     "chai": "^4.3.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mocha": "^8.2.1",

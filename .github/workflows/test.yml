@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - dev
-      - feature/integration-database-test-with-ci
   pull_request:
     branches:
       - dev
@@ -17,7 +16,7 @@ jobs:
       DB_PORT: 3306
       DB_USER: root
       DB_PASS: 1234
-      DB_NAME: vaccine_covid_test
+      DB_NAME: vaccine_comparator_test
     services:
       mysql:
         image: mariadb:10.5.8-focal
@@ -32,8 +31,7 @@ jobs:
         with:
           node-version: '15'
       - name: Exec database structure and dataset.
-        run: bash sql/test.sh
-      - run: npm install
+        run: npm install
       - run: npm test
       - name: Send mail
         uses: dawidd6/action-send-mail@v2
@@ -42,9 +40,9 @@ jobs:
           server_port: 587
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Github Actions job result
-          body: Build job of ${{github.repository}} completed successfully!
-          to: gitlab@florian-a.dev
+          subject: Github actions, tests success for ${{github.repository}}
+          body: Test job of ${{github.repository}} completed successfully!
+          to: ${{secrets.MAIL_USERNAME}}
           from: GitHub
           content_type: text/html
           convert_markdown: true
