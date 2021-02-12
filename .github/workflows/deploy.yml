@@ -45,7 +45,7 @@ jobs:
       - name: Testing API ...
         uses: lakuapik/gh-actions-http-status@v1
         with:
-          sites: '["http://api.vaccine-comparator.xyz/status"]'
+          sites: '["http://api.vaccine-comparator.xyz","http://api.vaccine-comparator.xyz/status"]'
           expected: '[200]'
       - name: Send mail
         uses: dawidd6/action-send-mail@v2
@@ -54,7 +54,7 @@ jobs:
           server_port: 587
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Github actions job result
+          subject: Github actions, deploy success for ${{github.repository}}
           body: Deploy of ${{github.repository}} is successfully!
           to: ${{secrets.MAIL_USERNAME}}
           from: GitHub
