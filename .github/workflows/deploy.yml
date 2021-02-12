@@ -3,12 +3,13 @@ on:
   push:
     branches:
       - dev
+      - feature/add-fonctional-test-after-deploy-complete
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Executing remote ssh commands ...
-        uses: appleboy/ssh-action@master
+        uses: dev
         env:
           CLONE_DIR: /home/${{ secrets.SSH_USERNAME }}/node-grp4
         with:
@@ -41,3 +42,27 @@ jobs:
             npm install
             pm2 stop app-grp4
             pm2 start --node-args="-r dotenv/config" index.js --name "app-grp4"
+      - name: Sleep for 5 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '5s'
+      - name: Test status of API ...
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: 'http://api.vaccine-comparator.xyz/status'
+          responseCode: '200'
+          timeout: 2000
+          interval: 500
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp-relay.sendinblue.com
+          server_port: 587
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Github actions, deploy success for ${{github.repository}}
+          body: Deploy of ${{github.repository}} is successfully!
+          to: ${{secrets.MAIL_USERNAME}}
+          from: GitHub
+          content_type: text/html
+          convert_markdown: true
