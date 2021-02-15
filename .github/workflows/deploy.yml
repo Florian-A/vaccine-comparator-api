@@ -1,0 +1,67 @@
+name: Deploy
+on: 
+  push:
+    branches:
+      - dev
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executing remote ssh commands ...
+        uses: appleboy/ssh-action@master
+        env:
+          CLONE_DIR: /home/${{ secrets.SSH_USERNAME }}/node-grp4
+        with:
+          host: ${{ secrets.WEB_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: CLONE_DIR
+          port: 22
+          script: |
+            echo "Starting deploy script ..."
+            echo git@github.com:${{github.repository}}.git
+            rm -rf $CLONE_DIR
+            git clone -b dev git@github.com:${{github.repository}}.git $CLONE_DIR
+            cd $CLONE_DIR
+            sed -i 's/web_port/${{ secrets.WEB_PORT }}/g' exemple.env
+            sed -i 's/db_host/${{ secrets.DB_HOST }}/g' exemple.env
+            sed -i 's/db_port/${{ secrets.DB_PORT }}/g' exemple.env
+            sed -i 's/db_username/${{ secrets.DB_USERNAME }}/g' exemple.env
+            sed -i 's/db_password/${{ secrets.DB_PASSWORD }}/g' exemple.env
+            sed -i 's/db_name/${{ secrets.DB_NAME }}/g' exemple.env
+            sed -i -e 's/db_host/${{ secrets.DB_HOST }}/g' sql/prod.bash
+            sed -i -e 's/db_user/${{ secrets.DB_USERNAME }}/g' sql/prod.bash
+            sed -i -e 's/db_pass/${{ secrets.DB_PASSWORD }}/g' sql/prod.bash
+            sed -i -e 's/db_name/${{ secrets.DB_NAME }}/g' sql/prod.bash
+            cp exemple.env prod.env
+            npm install
+            npm run build
+            ls . | grep -v "dist" | xargs rm -r
+            cd dist
+            npm install
+            pm2 stop app-grp4
+            pm2 start --node-args="-r dotenv/config" index.js --name "app-grp4"
+      - name: Sleep for 5 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '5s'
+      - name: Test status of API ...
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: 'http://api.vaccine-comparator.xyz/status'
+          responseCode: '200'
+          timeout: 2000
+          interval: 500
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp-relay.sendinblue.com
+          server_port: 587
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Github actions, deploy success for ${{github.repository}}
+          body: Deploy of ${{github.repository}} is successfully!
+          to: ${{secrets.MAIL_USERNAME}}
+          from: GitHub
+          content_type: text/html
+          convert_markdown: true
