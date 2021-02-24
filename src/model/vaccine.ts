@@ -4,7 +4,7 @@ const ajv = new AJV({
     allErrors: true,
 });
 
-export interface Vaccine {
+export interface IVaccine {
     name: string
     typeOfVaccine?: string
     sideEffects?: string
@@ -16,7 +16,17 @@ export interface Vaccine {
     schema?: Object
 }
 
-export class Vaccine {
+export class Vaccine implements IVaccine {
+
+    name: string;
+    typeOfVaccine: string;
+    sideEffects: string;
+    releaseDate: Date;
+    injection: number;
+    stepValidation: string;
+    _id: number;
+    laboratoryId: number;
+
     constructor(
         name: string,
         typeOfVaccine: string = null,
@@ -35,6 +45,7 @@ export class Vaccine {
         this._id = _id || null
         this.laboratoryId = laboratoryId || null
     }
+
     validate() {
         const temp = {
             name: this.name,

@@ -3,10 +3,10 @@ import { VaccineDAO as dao } from "../repository/vaccine.dao";
 
 export class VaccineService {
 
-    static persist(vax: Vaccine): Promise<any> {
+    static persist(inputVaccine): Promise<any> {
         return new Promise(async function (resolve, reject) {
             try {
-                const vaccine = new Vaccine(vax.name, vax.typeOfVaccine, vax.sideEffects, vax.releaseDate, vax.injection, vax.stepValidation, vax._id, vax.laboratoryId)
+                const vaccine = new Vaccine(inputVaccine.name, inputVaccine.typeOfVaccine, inputVaccine.sideEffects, inputVaccine.releaseDate, inputVaccine.injection, inputVaccine.stepValidation, inputVaccine._id, inputVaccine.laboratoryId)
                 if (!vaccine.validate() === true) throw vaccine.validate()
                 if (vaccine._id !== null) {
                     resolve(dao.edit(vaccine));
@@ -42,3 +42,4 @@ export class VaccineService {
         })
     }
 }
+
