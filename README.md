@@ -1,3 +1,7 @@
+# Prémbule :
+
+Cette partie aborde uniquement le back-end du projet vaccine-comparator.
+
 # Contexte : 
 
 Imaginez ✨ 🌟 ! 
